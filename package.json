@@ -1,0 +1,36 @@
+{
+  "name": "handle-rate-limiting-js",
+  "license": "SEE LICENSE IN /",
+  "version": "1.0.6",
+  "description": "Utility code to handle REST API rate limiting responses.",
+  "main": "dist/index.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "compile": "rm -rf dist && tsc",
+    "release": "yarn compile && npm publish"
+  },
+  "devDependencies": {
+    "@types/node": "^20.2.1",
+    "typescript": "^4.9.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dugaldmorrow/handle-rate-limiting-js.git"
+  },
+  "keywords": [
+    "rate",
+    "limiting",
+    "REST",
+    "API"
+  ],
+  "author": "Dugald Morrow",
+  "bugs": {
+    "url": "https://github.com/dugaldmorrow/handle-rate-limiting-js/issues"
+  },
+  "homepage": "https://github.com/dugaldmorrow/handle-rate-limiting-js#readme"
+}
