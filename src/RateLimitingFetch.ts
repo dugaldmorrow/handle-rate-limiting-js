@@ -65,7 +65,7 @@ export class RateLimitingFetch {
     this.debugEnabled = debugEnabled;
   }
 
-  private _fetch = async (remainintRetries: number, lastRetryDelayMillis: number, url: RequestInfo, init?: RequestInit): Promise<Response> => {
+  private _fetch = async (remainingRetries: number, lastRetryDelayMillis: number, url: RequestInfo, init?: RequestInit): Promise<Response> => {
     this.statsRecorder.logFetchAttempt();
     let retryAfterHeader: string | undefined = undefined;
     const response = await this.fetchImplementation.fetch(url, init);
@@ -94,7 +94,7 @@ export class RateLimitingFetch {
           unjitteredRetryDelayMillis = this.options.initialRetryDelayMillis;
         }
       }
-      if (remainintRetries > 0 && unjitteredRetryDelayMillis > 0) {
+      if (remainingRetries > 0 && unjitteredRetryDelayMillis > 0) {
         if (this.debugEnabled) {
           console.log(`Unjittered rate limit retry delay  = ${unjitteredRetryDelayMillis}ms.`);
         }
@@ -108,7 +108,7 @@ export class RateLimitingFetch {
         if (this.debugEnabled) {
           console.log(`Retrying fetch of ${url}`);
         }
-        return this._fetch(remainintRetries - 1, retryDelayMillis, url, init);
+        return await this._fetch(remainingRetries - 1, retryDelayMillis, url, init);
       } else {
         return response;
       }
