@@ -1,4 +1,10 @@
 export {
+  minJitterMultiplier,
+  tooManyRequestsStatusCode,
+  internalServerErrorStatusCode,
+  serviceUnavailableStatusCode
+} from './RateLimitingConstants';
+export {
   FetchInterface,
   NodeFetch
 } from './FetchInterface';
@@ -10,6 +16,7 @@ export {
   nonUiContextRateLimitingHandlingOptionsDefaults
 } from './RateLimitingHandlingOptions';
 export {
+  MockFetchInfo,
   MockFetchController,
   MockingFetch,
   RandomMockFetchController,
@@ -21,4 +28,10 @@ export {
   NoopRateLimitingFetchStatsRecorder,
   SimpleRateLimitingFetchStatsRecorder
 } from './RateLimitingFetchStats';
-
+export {
+  RetryInfo
+} from './RetryInfo';
+export {
+  RetryDetector,
+  DefaultRetryDetector
+} from './RetryDetector';
