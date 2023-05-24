@@ -26,6 +26,12 @@ Then call the `fetch` in the same way you would call the inbuilt `fetch` method.
 rateLimitingFetch.fetch(url, options);
 ```
 
+# Built in fetch dependency
+
+By default, the library is dependent on a JavaScript environment with a built in fetch operation such as Node 18 or later or a modern browser. 
+
+To circumvent this, alternate implementations of FetchInterface can be injected.
+
 # Configuraing the fetch behaviour
 
 To configure the fetch behaviour, construct `RateLimitingFetch` with a custom instance of `RateLimitingHandlingOptions` such as:

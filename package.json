@@ -1,12 +1,9 @@
 {
   "name": "handle-rate-limiting-js",
   "license": "SEE LICENSE IN /",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Utility code to handle REST API rate limiting responses.",
   "main": "dist/index.js",
-  "engines": {
-    "node": ">=18.0.0"
-  },
   "files": [
     "/dist"
   ],
