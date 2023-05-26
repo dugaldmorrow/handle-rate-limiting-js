@@ -6,6 +6,7 @@ import {
 } from './RateLimitingFetchStats';
 import { RateLimitingHandlingOptions } from './RateLimitingHandlingOptions';
 import { DefaultRetryDetector, RetryDetector } from './RetryDetector';
+import { RetryInfo } from './RetryInfo';
 
 /**
  * This class provides a fetch implementation that handles rate limiting.
@@ -67,18 +68,22 @@ export class RateLimitingFetch {
    * standard fetch method as documented in https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API. 
    */
   public fetch = async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
-    return await this._fetch(this.options.maxRetries, 0, url, init);
+    const lastRetryInfo: RetryInfo = {
+      remainingRetries: this.options.maxRetries,
+      retryDelayMillis: 0
+    }
+    return await this._fetch(lastRetryInfo, url, init);
   }
 
-  private _fetch = async (remainingRetries: number, lastRetryDelayMillis: number, url: RequestInfo, init?: RequestInit): Promise<Response> => {
+  private _fetch = async (lastRetryInfo: RetryInfo, url: RequestInfo, init?: RequestInit): Promise<Response> => {
     this.statsRecorder.logFetchAttempt();
     const response = await this.fetchImplementation.fetch(url, init);
     const retryInfo = this.retryDetector.computeRetryInfo(
-      remainingRetries, lastRetryDelayMillis, this.options, response);
+      lastRetryInfo.remainingRetries, lastRetryInfo.retryDelayMillis, this.options, response);
     if (retryInfo) {
       this._delay(retryInfo.retryDelayMillis);
       this.statsRecorder.logRetry(retryInfo.retryDelayMillis);
-      return await this._fetch(retryInfo.remainingRetries, retryInfo.retryDelayMillis, url, init);
+      return await this._fetch(retryInfo, url, init);
     } else {
       return response;
     }
